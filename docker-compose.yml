@@ -6,16 +6,33 @@ services:
     restart: unless-stopped
     volumes:
       - ./pg-data:/var/lib/postgresql/data/pgdata
+    networks:
+      - internal-network
+      
   backend:
     build: ./backend
-    image: nest
+    env_file: .env
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    networks:
+      - internal-network
+      - internet
     ports:
       -'4000:3000'
 
   frontend:
     build: ./frontend
     image: frontend
+    networks:
+      - internet
     ports:
       -'8081:80'
 
+networks:
+  internal-network:
+    driver: bridge
+    internal: true
+  internet:
+    driver: bridge
 
