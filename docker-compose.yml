@@ -1,0 +1,21 @@
+version: 'latest'
+services:
+  postgres:
+    image: 'postgres:13'
+    env_file: .env
+    restart: unless-stopped
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data/pgdata
+  backend:
+    build: ./backend
+    image: nest
+    ports:
+      -'4000:3000'
+
+  frontend:
+    build: ./frontend
+    image: frontend
+    ports:
+      -'8081:80'
+
+
