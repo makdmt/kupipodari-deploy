@@ -5,7 +5,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM nginx:latest-alpine as production
+FROM nginx:alpine as production
 WORKDIR /usr/share/nginx/html
 COPY --from=builder /app/build .
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d
