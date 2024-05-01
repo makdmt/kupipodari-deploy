@@ -13,6 +13,8 @@ services:
       
   backend:
     build: ./backend
+    image: backend
+    container_name: backend
     env_file: 
       - .env
     restart: unless-stopped
@@ -27,6 +29,7 @@ services:
   frontend:
     build: ./frontend
     image: frontend
+    container_name: frontend
     networks:
       - internet
     ports:
