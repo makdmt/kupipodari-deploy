@@ -1,8 +1,10 @@
 version: 'latest'
 services:
   postgres:
-    image: 'postgres:13'
-    env_file: .env
+    image: 'postgres'
+    container_name: postgres
+    env_file:
+      - .env
     restart: unless-stopped
     volumes:
       - ./pg-data:/var/lib/postgresql/data/pgdata
@@ -11,7 +13,8 @@ services:
       
   backend:
     build: ./backend
-    env_file: .env
+    env_file: 
+      - .env
     restart: unless-stopped
     depends_on:
       - postgres
@@ -19,7 +22,7 @@ services:
       - internal-network
       - internet
     ports:
-      -'4000:3000'
+      - '4000:3000'
 
   frontend:
     build: ./frontend
@@ -27,7 +30,7 @@ services:
     networks:
       - internet
     ports:
-      -'8081:80'
+      - '8081:80'
 
 networks:
   internal-network:

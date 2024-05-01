@@ -7,6 +7,6 @@ RUN npm run build
 
 FROM nginx:1.23.1-alpine as production
 WORKDIR /usr/share/nginx/html
-COPY --from=builder /app/build/* ./
-COPY nginx/conf.d/* /etc/nginx/conf.d/*
+COPY --from=builder /app/build .
+COPY nginx/conf.d/default.conf /etc/nginx/conf.d
 EXPOSE 80
