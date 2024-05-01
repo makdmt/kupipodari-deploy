@@ -7,7 +7,7 @@ services:
       - .env
     restart: unless-stopped
     volumes:
-      - ./pg-data:/var/lib/postgresql/data/pgdata
+      - postgres-data:/var/lib/postgresql/data
     networks:
       - internal-network
       
@@ -31,6 +31,9 @@ services:
       - internet
     ports:
       - '8081:80'
+
+volumes:
+  postgres-data:
 
 networks:
   internal-network:
